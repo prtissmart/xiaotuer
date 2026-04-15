@@ -5,6 +5,7 @@ const props=defineProps({
   count:Number
 })
 console.log(props)
+console.log(props.message)
 </script>
 <template>
 <div class="son">
