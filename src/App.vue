@@ -49,6 +49,7 @@ onMounted(()=>{
 <script setup>
 import { ref } from 'vue';
 import SonCom from './son-com.vue'
+import HelloWorld from '@/components/HelloWorld.vue';
   const count=ref(0)
   setTimeout(()=>{
     count.value++
