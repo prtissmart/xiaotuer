@@ -1,5 +1,4 @@
 <script setup>
-console.log("Hello, Xiaotuer!");
 </script>
 <template>
   <el-button type="primary">Primary</el-button>
