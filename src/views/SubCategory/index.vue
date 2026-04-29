@@ -20,7 +20,8 @@ const reqData=ref({
      pageSize: 20,
      sortField: 'publishTime'
 })
-const getGoodsList=async ()=>{
+const disabled=ref(false)
+const getGoodsList=async () =>{
     const res=await getSubCategoryAPI(reqData.value)
     goodsList.value=res.result.items
 }
@@ -28,6 +29,16 @@ const getGoodsList=async ()=>{
 const tabChange=() =>{
     reqData.value.page=1
     getGoodsList()
+}
+const load= async ()=>{
+    reqData.value.page++
+    const res=await getSubCategoryAPI(reqData.value)
+    goodsList.value=[...goodsList.value,...res.result.items]
+    // console.log(res.result.items.length)
+    // 加载完毕，停止监听
+    if (res.result.items.length === 0) {
+        disabled.value=true
+    }
 }
 onMounted(() => {
     getCategoryData()
@@ -53,9 +64,9 @@ onMounted(() => {
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body">
+      <div class="body" v-infinite-scroll="load" :infinite-scroll-disabled="disabled">
          <!-- 商品列表-->
-          <GoodsItem v-for="item in goodsList" :key="item.id" :goods="item" />
+          <GoodsItem   v-for="item in goodsList" :key="item.id" :goods="item" />
       </div>
     </div>
   </div>
