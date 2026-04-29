@@ -20,7 +20,7 @@ const categoryStore=useCategoryStore()
 
       <div class="right">
         <RouterLink to="/">品牌</RouterLink>
-        <RouterLink to="/">专题</RouterLink>
+        <RouterLink to="/">专题</RouterLink>+
       </div>
     </div>
   </div>
