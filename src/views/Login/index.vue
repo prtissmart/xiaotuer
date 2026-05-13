@@ -3,15 +3,25 @@ import { ref } from 'vue';
 //表单校验（账户名和密码）
 const form = ref({
   account: '',
-  password: ''
+  password: '',
+  agree: false
 });
-// 规则
+// 简单规则
 const rules={
     account:[
         {required:true,message:'请输入账户名',trigger:'blur'}    ],
     password:[
         {required:true,message:'请输入密码',trigger:'blur'},
-        {min:6,max:14,message:'密码长度不能小于6位大于14位',trigger:'blur'}]
+        {min:6,max:14,message:'密码长度不能小于6位大于14位',trigger:'blur'}],
+    agree:[
+        {validator:(rule,value,callback)=>{
+            console.log(value)
+            if(value){
+                callback();
+            }else{
+                callback(new Error('请同意隐私条款和服务条款'));
+            }
+        }}]
 }
 </script>
 
@@ -45,8 +55,8 @@ const rules={
               <el-form-item prop="password" label="密码">
                 <el-input v-model="form.password" type="password"/>
               </el-form-item>
-              <el-form-item label-width="22px">
-                <el-checkbox  size="large">
+              <el-form-item prop="agree" label-width="22px">
+                <el-checkbox  size="large" v-model="form.agree">
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
