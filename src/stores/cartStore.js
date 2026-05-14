@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-
+import { computed } from "vue";
 export const useCartStore = defineStore('cart', () => {
   const cartList = ref([])
   const addCart = (goods) => {
@@ -19,10 +19,23 @@ export const useCartStore = defineStore('cart', () => {
     const idx = cartList.value.findIndex((item) => item.skuId === skuId)
     cartList.value.splice(idx, 1)
   }
+  // 计算数量和总价
+  // 更健壮的版本
+  const total = computed(() => {
+    if (!cartList.value.length) return 0
+    return cartList.value.reduce((a, item) => a + (item.count || 0), 0)
+  })
+
+  const totalPrice = computed(() => {
+    if (!cartList.value.length) return 0
+    return cartList.value.reduce((a, item) => a + (item.count || 0) * (item.price || 0), 0)
+  })
   return {
     cartList,
     addCart,
-    deleteCart
+    deleteCart,
+    total,
+    totalPrice
   }
 
 },
