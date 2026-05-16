@@ -30,12 +30,19 @@ export const useCartStore = defineStore('cart', () => {
     if (!cartList.value.length) return 0
     return cartList.value.reduce((a, item) => a + (item.count || 0) * (item.price || 0), 0)
   })
+  // 单选功能
+  const singleCheck = (skuId, selected) => {
+    //通过skuid找到要修改的一项，改变selected
+    const item = cartList.value.find((item) => item.skuId === skuId)
+    item.selected = selected
+  }
   return {
     cartList,
     addCart,
     deleteCart,
     total,
-    totalPrice
+    totalPrice,
+    singleCheck
   }
 
 },
