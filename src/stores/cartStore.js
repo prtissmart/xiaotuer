@@ -45,6 +45,14 @@ export const useCartStore = defineStore('cart', () => {
       item.selected = selected
     })
   }
+  //已选数量
+  const selectedTotal = computed(() => {
+    return cartList.value.filter(item => item.selected).reduce((a, item) => a + (item.count || 0), 0)
+  })
+  //已选商品价格合计
+  const selectedPrice = computed(() => {
+    return cartList.value.filter(item => item.selected).reduce((a, item) => a + (item.count || 0) * (item.price || 0), 0)
+  })
   return {
     cartList,
     addCart,
@@ -53,7 +61,9 @@ export const useCartStore = defineStore('cart', () => {
     totalPrice,
     singleCheck,
     isall,
-    allCheck
+    allCheck,
+    selectedTotal,
+    selectedPrice
   }
 
 },
