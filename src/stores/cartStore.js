@@ -52,6 +52,9 @@ export const useCartStore = defineStore('cart', () => {
   }
 
 //清除购物车
+  const clearCart = () => {
+    cartList.value = []
+  }
   // 计算数量和总价
   // 更健壮的版本
   const total = computed(() => {
@@ -96,7 +99,8 @@ export const useCartStore = defineStore('cart', () => {
     isall,
     allCheck,
     selectedTotal,
-    selectedPrice
+    selectedPrice,
+    clearCart
   }
 
 },
