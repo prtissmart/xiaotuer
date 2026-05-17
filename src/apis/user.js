@@ -11,3 +11,13 @@ import httpInstance from "@/utils/http";
         }
     })
 }
+
+// 猜你喜欢
+export const getLikeListAPI = ({ limit = 4 }) => {
+  return httpInstance({
+    url:'/goods/relevant',
+    params: {
+      limit 
+    }
+  })
+}
